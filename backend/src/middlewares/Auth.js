@@ -14,7 +14,7 @@ async function CheckInfo(req, res, next){
          })
          
          if(!find){
-            return res.status(404).json({message: "not fond"})
+            return res.status(404).json({message: "le user n'existe pas"})
          }
 
          //comparer le password

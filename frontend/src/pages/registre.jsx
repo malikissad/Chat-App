@@ -1,7 +1,7 @@
 import React from "react"
 import login from '../assets/login.png'
 import plogin from '../assets/plogin_2.svg'
-import Cadre from "../components/login/cadre"
+import CadreR from "../components/register/cadreR"
 import background from '../assets/background.svg'
 
 import {motion} from 'framer-motion'
@@ -18,7 +18,7 @@ function Register(){
              transition={{duration:0.8}}
              className="rounded-3xl m-3 flex justify-center items-center "
              style={{backgroundImage: `url(${login})`}}>
-                <Cadre 
+                <CadreR 
                  title="create your account"
                  login="Sign Up"
                  desc="you have an account ?"

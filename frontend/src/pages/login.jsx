@@ -4,6 +4,8 @@ import Cadre from '../components/login/cadre'
 import background from '../assets/background.svg'
 import {motion} from 'framer-motion'
 function Login(){
+    
+
     return(
         <div
            style={{ backgroundImage: `url(${background})`}}
@@ -25,18 +27,10 @@ function Login(){
             className='m-3 rounded-3xl flex justify-center items-center shadow-2xl'
             style={{backgroundImage: `url(${image})`}}>
                 <Cadre 
-                 Elements="email password" 
-                 title="Connect to your account" 
-                 forget="Forget password ?" 
-                 login="Login" 
-                 desc="You don't have an account ?" 
-                 signup="Sign Up" 
-                 h="80" 
-                 w="60"
-                 to="/Register "
+                 
                 />
-
             </motion.div>
+
            </div>
         </div>
     )
