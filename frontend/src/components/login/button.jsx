@@ -1,33 +1,39 @@
 import {useNavigate } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
+import  AuthContext from "../../authContext/authContext.jsx"
 
-
-function Button({text, username, password}) {
+function Button({text, username, password, seterreur}) {
     
     const navigate = useNavigate()
-
-    async function hundleclick(){
-        const response = await fetch('http://localhost:3000/auth/login', {
-            method: 'POST',
-            headers: {
-                'content-type' : 'application/json'
-            },
-            body:JSON.stringify({
-                username : username,
-                password : password
-            })
-        })
-            const data = await response.json()
-            return data
+    const {user, login} = useContext(AuthContext)
+    const [data, setdata] = useState("")
+    
+    async function handleclick(){
+        const data = await login(username, password)
+        setdata(data)
+        if(data.status == 404){
+            seterreur("user n'existe pas")
+        }else if(data.status == 401){
+            seterreur("mot de passe ou username sont fausses")
+        }
+        return data
     }
+
+    useEffect(()=>{
+        if(user){
+            console.log(user)
+            navigate('/chat')
+        }
+    },[user])
+    
     return (
         
         <div className="w-full h-[50%] flex justify-center">
             <button 
-            onClick={async()=> {
-                console.log(await hundleclick())
-                navigate("/chat")
-            }
-            }
+            onClick={async ()=> {
+                console.log(data)
+               await handleclick()
+            }}
             className="w-[80%] h-full bg-white rounded-lg font-semibold shadow-xl
              hover:bg-purple-200 hover:text-purple-800 transition hover:duration-400 ">{text}</button>
         </div>

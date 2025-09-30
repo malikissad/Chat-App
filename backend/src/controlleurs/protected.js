@@ -1,5 +1,5 @@
 function Protected(req,res){
-   return res.json({AccessToken : res.locals.AccessToken})
+    res.json({messageBon : res.locals.decode})
 }
 
 module.exports = Protected

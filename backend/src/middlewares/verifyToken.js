@@ -1,16 +1,19 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
+
 function VerifyAccessToken(req,res,next){
     const header = req.headers['authorization']
     const Access = header && header.split(" ")[1]
     
     jwt.verify(Access, process.env.AccessToken, (err, decode) => {
         if(err){
-            next()
+            return res.json({messageAccess : err.message})
         }
-        return res.json({message: decode})
+        res.locals.decode = decode
+        next()
     })
 }
+
 
 function VerifyRefreshToken(req,res,next){
     const Refresh = req.cookies.RefreshToken
@@ -39,7 +42,7 @@ function VerifyRefreshToken(req,res,next){
 
 }
 
-module.exports = [
+module.exports = {
     VerifyAccessToken,
     VerifyRefreshToken
-]
+}
