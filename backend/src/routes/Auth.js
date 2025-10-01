@@ -18,6 +18,6 @@ Router.post("/refresh", VerifyRefreshToken, (req,res) => {
     return res.json({AccessToken : res.locals.AccessToken})
 })
 
-Router.post("/add",CheckInfoR, Add, Register)
+Router.post("/Register",CheckInfoR, Add, Register)
 
 module.exports = Router

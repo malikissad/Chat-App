@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import login from '../assets/login.png'
 import plogin from '../assets/plogin_2.svg'
 import CadreR from "../components/register/cadreR"
@@ -6,7 +6,8 @@ import background from '../assets/background.svg'
 
 import {motion} from 'framer-motion'
 function Register(){
-    return(
+
+   return(
         <div 
            style={{backgroundImage: `url(${background})`}}
            className="h-screen w-full flex justify-center items-center bg-no-repeat bg-cover bg-center">

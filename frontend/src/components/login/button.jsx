@@ -2,6 +2,7 @@ import {useNavigate } from "react-router-dom"
 import { useContext, useEffect, useState } from "react"
 import  AuthContext from "../../authContext/authContext.jsx"
 
+
 function Button({text, username, password, seterreur}) {
     
     const navigate = useNavigate()

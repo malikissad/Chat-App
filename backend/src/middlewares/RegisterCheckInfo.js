@@ -17,7 +17,7 @@ async function CheckInfoR(req, res, next){
     }
     res.locals.info = {username, email, password}
     next()
-
+    
     }catch(err){
         return res.status(500).json({message : err.message})
     }

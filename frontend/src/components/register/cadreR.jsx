@@ -1,10 +1,14 @@
 import InputBar from "../login/inputbar.jsx"
-import Button from "../login/button.jsx" 
+import ButtonR from "../register/button.jsx" 
 import logo from '../../assets/logo.svg'
 import { Link } from "react-router-dom"
 import {motion} from 'framer-motion'
-    
+import { useState} from "react"
+
 function CadreR() {
+        const [username, setusername] = useState("")
+        const [email, setemail] = useState("")
+        const [password , setpassword] = useState("")
                
         return (
             <motion.div 
@@ -18,9 +22,26 @@ function CadreR() {
             </div>
             <div className="flex flex-col justify-center items-center">
                 
-                <InputBar type="username"></InputBar>
-                <InputBar type="email"></InputBar>
-                <InputBar type="password"></InputBar>
+                <InputBar 
+                 type="username"
+                 setusername={setusername}
+                 setpassword={setpassword}
+                 setemail={setemail}
+                 ></InputBar>
+
+                <InputBar 
+                 type="Email"
+                 setusername={setusername}
+                 setpassword={setpassword}
+                 setemail={setemail}
+                 ></InputBar>
+
+                <InputBar 
+                 type="password"
+                 setusername={setusername}
+                 setpassword={setpassword}
+                 setemail={setemail}
+                 ></InputBar>
                 
                 <div className="w-full flex justify-end mr-[20%] ">
                     <p className="text-sm text-gray-200">Forget password ?</p>
@@ -28,7 +49,12 @@ function CadreR() {
             </div>
             <div className="flex flex-col justufy-center items-center">
                 
-                <Button text="Sign Up"></Button>
+                <ButtonR 
+                 text="Sign Up"
+                 username={username}
+                 email={email}
+                 password={password}
+                 ></ButtonR>
                 <div className="mt-5">
                     <p className="text-xs text-white/70">vous avez un compte déjà ?  
                     <Link className="font-bold" to="/Login"> Login</Link></p>

@@ -1,6 +1,6 @@
 import React from "react";
 
-function InputBar({type, setusername, setpassword}) {
+function InputBar({type, setusername, setpassword, setemail}) {
     
     
     return (
@@ -9,11 +9,15 @@ function InputBar({type, setusername, setpassword}) {
             <input 
              className="p-3 w-[80%] h-[45%] rounded-lg bg-white/20 outline-none" 
              type={type} 
-             onChange={
-                type === "username" 
-                ? (e) => setusername(e.target.value) 
-                : (e) => setpassword(e.target.value)
-            }
+             onChange={(e) =>{
+                if(type === "username"){
+                    setusername(e.target.value)
+                }else if(type === "Email"){
+                    setemail(e.target.value)
+                }else if(type === "password"){
+                    setpassword(e.target.value)
+                }
+             }}
          />
         </div>
     )
