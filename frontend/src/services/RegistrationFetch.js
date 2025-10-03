@@ -11,12 +11,9 @@ export async function RegistrationFetch({username, email, password}){
                 password : password
             })
         })
-        if(!response.ok){
-            alert(response.message)
-            return response
-        }
+
         const data = await response.json()
-        return data
+        return {response, data}
     }catch(err){
         console.log("front erreur :" + err.message)
     }

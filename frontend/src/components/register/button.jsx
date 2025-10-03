@@ -4,7 +4,16 @@ import { RegistrationFetch } from "../../services/RegistrationFetch"
 
 function ButtonR({text, username, email, password}){
     async function handleclick(){
-        const data = await RegistrationFetch(username, email, password)
+        const data = await RegistrationFetch({username, email, password})
+        
+        if(data.response.status == 400){
+            return alert(data.data.message)
+        }else if(data.response.status == 409){
+            return alert(data.data.message)
+        }else if(data.response.status == 201){
+            return alert(data.data.message)
+        }
+
         return data
     }
     return (
