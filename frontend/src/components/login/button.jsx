@@ -1,5 +1,4 @@
-import React, { useContext } from "react"
-import {userContect} from "react"
+import React, { useContext, useEffect} from "react"
 import AuthContext from '../../authContext/authContext.jsx'
 function Button({username, password, seterreur}){
     
@@ -7,7 +6,7 @@ function Button({username, password, seterreur}){
 
     async function hundleClick(){
         const response = await login(username, password)
-        // const data = await response.json()
+        const data = await response.json()
 
         if(response.status == 400){
             seterreur(data.message)
@@ -20,7 +19,9 @@ function Button({username, password, seterreur}){
         }
 
         return response
-    }    
+    }  
+    
+    
     return (
         <>
         <button 
