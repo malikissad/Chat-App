@@ -8,6 +8,7 @@ async function Add(req, res, next){
             id_user : res.locals.info.id,
             username : res.locals.info.username,
             email : res.locals.info.email,
+            Name : res.locals.info.Name,
             password : hashpassword
         })
         next()

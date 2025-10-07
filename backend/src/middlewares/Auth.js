@@ -8,27 +8,32 @@ async function CheckInfo(req, res, next){
     const {username, password} = req.body
 
     try{
+
+        if(!username || !password){
+            return res.status(400).json({message : "manque d'information"})
+        }
+
         // trouver le user
          const find = await db.Users.findOne({
             where: {username: username},
-         })
+        })
          
-         if(!find){
+        if(!find){
             return res.status(404).json({message: "le user n'existe pas"})
-         }
+        }
 
-         //comparer le password
+        //comparer le password
 
-         const validPassword = await bcrypt.compare(password, find.password)
-         if(!validPassword){
+        const validPassword = await bcrypt.compare(password, find.password)
+        if(!validPassword){
             return res.status(401).json({message: "mot de pass faux"})
-         }else{
+        }else{
           req.info = find
             next()
-         }         
+        }         
          
     }catch(err){
-        return res.status(400).json(err.message)
+        return res.status(500).json({message : err.message})
     }
 }
 

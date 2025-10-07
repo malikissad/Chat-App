@@ -1,44 +1,36 @@
-import {useNavigate } from "react-router-dom"
-import { useContext, useEffect, useState } from "react"
-import  AuthContext from "../../authContext/authContext.jsx"
-
-
-function Button({text, username, password, seterreur}) {
+import React, { useContext } from "react"
+import {userContect} from "react"
+import AuthContext from '../../authContext/authContext.jsx'
+function Button({username, password, seterreur}){
     
-    const navigate = useNavigate()
-    const {user, login} = useContext(AuthContext)
-    const [data, setdata] = useState("")
-    
-    async function handleclick(){
-        const data = await login(username, password)
-        setdata(data)
-        if(data.status == 404){
-            seterreur("user n'existe pas")
-        }else if(data.status == 401){
-            seterreur("mot de passe ou username sont fausses")
+    const {token, user, login} = useContext(AuthContext)
+
+    async function hundleClick(){
+        const response = await login(username, password)
+        // const data = await response.json()
+
+        if(response.status == 400){
+            seterreur(data.message)
+        }else if(response.status == 401){
+            seterreur(data.message)
+        }else if(response.status == 404){
+            seterreur(data.message)
+        }else if(response.status == 500){
+            seterreur(data.message)
         }
-        return data
-    }
 
-    useEffect(()=>{
-        if(user){
-            console.log(user)
-            navigate('/chat')
-        }
-    },[user])
-    
+        return response
+    }    
     return (
-        
-        <div className="w-full h-[50%] flex justify-center">
-            <button 
-            onClick={async ()=> {
-                console.log(data)
-               await handleclick()
-            }}
-            className="w-[80%] h-full bg-white rounded-lg font-semibold shadow-xl
-             hover:bg-purple-200 hover:text-purple-800 transition hover:duration-400 ">{text}</button>
-        </div>
+        <>
+        <button 
+         onClick={async (e) => { console.log(await hundleClick())}}
+         className="group w-[60%] h-[60%] bg-black rounded-2xl transition-all duration-400
+                 hover:bg-white hover:ring-black  hover:ring-2 hover:text-black button-shadow">
+            <p className="text-xl font-bold text-white group-hover:text-black">Login</p>
+        </button>
+        </>
     )
-    }
+}
 
 export default Button

@@ -1,42 +1,37 @@
-const express = require('express')
-const sequelize = require('./src/configs.js')
-const Router = require('./src/routes/Auth.js')
-const bcrypt = require('bcrypt')
-const db = require('./models/index.js')
-const cookieParser = require('cookie-parser')
-const cors = require('cors')
+const express = require("express");
+const sequelize = require("./src/configs.js");
+const Router = require("./src/routes/Auth.js");
+const bcrypt = require("bcrypt");
+const db = require("./models/index.js");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
+const app = express();
+const port = 3000;
 
-const app = express()
-const port = 3000
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
-app.use(cors({
-  origin:'http://localhost:5173',
-  credentials: true 
-}))
+app.use(express.json());
+app.use(cookieParser());
+app.use("/auth", Router);
 
-app.use(express.json())
-app.use(cookieParser())
-app.use('/auth',Router)
+app.get("/add", async (req, res) => {
+  try {
+   
+    const user = await db.Users.findByPk(13)
+    const conv = await db.Conversations.findByPk(1) 
 
-app.get('/add', async (req,res) => {
-    const {id, username, email, avatar, password} = req.body
-    
-    try{
-       const passwordCrypt = await bcrypt.hash(password,10)
-       const user = await db.Users.create({
-         id, 
-         username, 
-         email, 
-         avatar, 
-         password : passwordCrypt
-       })
-       res.json({message : `compte de ${username} créer`})
-    }catch(err){
-        res.json({message : err.message})
-    }
-})
+    await user.addConversation(conv)
+    // return res.json(user)
+    return res.json({message : "ajouter avec succée"})
+  } catch (err) {
+    return res.json({erreur : err.message});
+  }
+});
 
-
-
-app.listen(port)
+app.listen(port);

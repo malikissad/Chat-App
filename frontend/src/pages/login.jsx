@@ -1,40 +1,27 @@
-import image from '../assets/login.png'
-import plogin from '../assets/plogin1.svg'
-import Cadre from '../components/login/cadre'
-import background from '../assets/background.svg'
-import {motion} from 'framer-motion'
+import React from "react"
+import Design from "../components/login/design"
+import Info from "../components/login/info"
+import {motion} from "framer-motion"
 function Login(){
-    
-
-    return(
-        <div
-           style={{ backgroundImage: `url(${background})`}}
-           className='h-screen w-full flex justify-center items-center bg-no-repeat bg-cover bg-center'>
-           <div 
-             
-             className='h-[70%] w-[65%] bg-white rounded-3xl grid grid-cols-[1fr_1fr] shadow-2xl'> 
-             <div className='flex justify-center items-center'>
-                 <motion.img 
-                 initial={{ scale:0}}
-                 animate={{ scale:1}}
-                 transition={{duration:0.8}}
-                 src={plogin} />
-             </div>
-            <motion.div
-            initial={{x:"-100%"}}
-             animate={{x:"0%"}}
-             transition={{duration:0.8}} 
-            className='m-3 rounded-3xl flex justify-center items-center shadow-2xl'
-            style={{backgroundImage: `url(${image})`}}>
-                <Cadre 
-                 
-                />
+    return (
+        <div className="h-screen w-full grid grid-cols-[50%_50%] ">
+            <motion.div 
+             initial={{opacity : 0}}
+             animate={{opacity : 1}}
+             transition={{duration : 1,delay:0.5}}
+             className="flex flex-col justify-start items-center m-[5%] rounded-3xl">
+                <Info></Info>
             </motion.div>
-
-           </div>
+            <motion.div 
+             initial={{x : "-100%"}}
+             animate={{x : "0"}}
+             transition={{duration:1}}
+             className="flex flex-col justify-start items-center 
+            bg-gradient-to-t from-blue-400 to-rose-400 m-[5%] rounded-3xl shadow-2xl">
+                <Design></Design>
+            </motion.div>
         </div>
     )
 }
-
 
 export default Login

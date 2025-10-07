@@ -14,54 +14,30 @@ export function AuthProvider({children}){
     async function login(username, password){
         try{
             const response = await fetch('http://localhost:3000/auth/login',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
+                method: 'POST',
+                headers: {
+                 'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                 username: username,
+                 password: password
+                })
             })
-        })
-
-        if(!response.ok){
-            return {status: response.status, message: response.message}
-        }
-        // return response.status 
-
-        const data = await response.json()
-        settoken(data.AccessToken)
-        const access = jwtDecode(data.AccessToken)
-        setuser(access)        
-        
-        return response
+            
+            
+            // settoken(data.AccessToken)
+            // setuser(jwtDecode(data.AccessToken))
+            return response
 
         }catch(err){
             return "erreur : " + err.message
         }
     } 
-
-
-   // tester la validité du accesstoken
-    async function Protected(){
-        try{
-            const  response = await fetch('http://localhost:3000/auth/protected', {
-            method: 'GET',
-            headers:{
-                'Content-Type' : 'application/json',
-                "Authorization": `Bearer ${token}`
-            }}
-        )
-        const data = await response.json() 
-        return data
-        }catch(err){
-            return "erreur : " +err.message 
-        }
-    }
+    
 
     
     return (
-        <AuthContext.Provider value={{token, user, login, Protected}}>
+        <AuthContext.Provider value={{token, user, login}}>
             {children}
         </AuthContext.Provider>
 

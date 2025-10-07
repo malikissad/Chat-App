@@ -1,4 +1,4 @@
-export async function RegistrationFetch({username, email, password}){
+export async function RegistrationFetch({FullName, Username, Email, Password}){
     try{
         const response = await fetch('http://localhost:3000/auth/Register',{
             method : 'POST',
@@ -6,14 +6,15 @@ export async function RegistrationFetch({username, email, password}){
                 'Content-Type' : 'application/json'
             },
             body: JSON.stringify({
-                username : username,
-                email : email,
-                password : password
+                Name : FullName,
+                email : Email,
+                password : Password,
+                username : Username,
+
             })
         })
 
-        const data = await response.json()
-        return {response, data}
+        return response
     }catch(err){
         console.log("front erreur :" + err.message)
     }

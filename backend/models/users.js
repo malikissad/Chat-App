@@ -18,8 +18,9 @@ const Users = sequelize.define('Users',{
         allowNull:false,
       },
 
-      avatar:{
-      type:DataTypes.STRING
+      Name:{
+        type:DataTypes.STRING,
+        allowNull:false,
       },
 
       password:{
@@ -31,5 +32,17 @@ const Users = sequelize.define('Users',{
    tableName:'Users',
    timestamps: false
 })
+
+
+
+Users.associate = (models) => {
+  Users.belongsToMany(models.Conversations, {
+      through: 'Users_Conversations', // nom de la table intermédiaire
+      foreignKey: 'id_users',        // clé étrangère côté User
+      otherKey: 'id_conv',          // clé étrangère côté Conversation
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+  })
+}
   return Users;
 };
