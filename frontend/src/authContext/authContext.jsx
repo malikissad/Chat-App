@@ -23,10 +23,12 @@ export function AuthProvider({children}){
                  password: password
                 })
             })
-            
-            
-            // settoken(data.AccessToken)
-            // setuser(jwtDecode(data.AccessToken))
+
+            if(response.ok){
+             const data = await response.json()
+             settoken(data)
+             setuser(jwtDecode(data.AccessToken))
+            }
             return response
 
         }catch(err){
