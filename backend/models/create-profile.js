@@ -30,17 +30,20 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'Users',
         key: 'id_user'
-      }
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     }
   }, {
-    tableName: 'Profiles', // même nom que dans ta migration
-    timestamps: false      // pas de createdAt / updatedAt
+    tableName: 'Profiles',
+    timestamps: false
   });
 
-  // 🔗 Association (relations)
   Profile.associate = (models) => {
+    // Chaque profil appartient à un utilisateur
     Profile.belongsTo(models.Users, {
       foreignKey: 'id_user',
+      as: 'user',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
     });
