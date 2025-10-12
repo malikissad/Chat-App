@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    }
+    },
   }, {
     tableName: 'Users',
     timestamps: false
@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
     });
-
+    
     // 🔁 Relation Many-to-Many auto-référencée via Abonner
     Users.belongsToMany(models.Users, {
       through: models.Abonner,

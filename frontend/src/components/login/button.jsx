@@ -19,7 +19,7 @@ function Button({username, password, seterreur}){
     if(token){ 
         console.log(token)
         console.log(user)
-        navigate('/Chat')
+        {user.first_login == "true" ? navigate('/info') : navigate('/Chat')}
     }
     },[token])
     
