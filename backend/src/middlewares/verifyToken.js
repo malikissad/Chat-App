@@ -4,10 +4,14 @@ const jwt = require('jsonwebtoken')
 function VerifyAccessToken(req,res,next){
     const header = req.headers['authorization']
     const Access = header && header.split(" ")[1]
+
+    if(!Access){
+        return res.status(400).json({message : "token not found"})
+    }
     
     jwt.verify(Access, process.env.AccessToken, (err, decode) => {
         if(err){
-            return res.json({messageAccess : err.message})
+            return res.json({message : err.message})
         }
         res.locals.decode = decode
         next()

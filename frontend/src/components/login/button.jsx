@@ -3,25 +3,35 @@ import {useNavigate} from 'react-router-dom'
 import AuthContext from '../../authContext/authContext.jsx'
 function Button({username, password, seterreur}){
     
-    const {token, user, login} = useContext(AuthContext)
+    const {login} = useContext(AuthContext)
     const navigate = useNavigate()
     async function hundleClick(){
-        const response = await login(username, password)
+        try{
+            const response = await login(username, password)
 
-        if(response.response.status == 400 || response.response.status == 401 || response.response.status == 404 || response.response.status == 409){
-            seterreur(response.data.message)
+            // return response.data
+            if(response.response.status == 400 || response.response.status == 401 || response.response.status == 404 || response.response.status == 409){
+             seterreur(response.data.message)
+            }
+         return response.data
+
+        }catch(err){
+            return err.message
         }
-
-        return response
     }  
 
     useEffect(()=>{
-    if(token){ 
-        console.log(token)
-        console.log(user)
-        {user.first_login == "true" ? navigate('/info') : navigate('/Chat')}
-    }
-    },[token])
+
+        const info = JSON.parse(localStorage.getItem('user'))
+        console.log(localStorage.getItem('user'))
+
+        if(info.avatar == null){
+            navigate('/info')
+            console.log(localStorage.getItem('token'))
+        }else{
+            navigate('/chat')
+        }
+    },[])
     
     
     return (

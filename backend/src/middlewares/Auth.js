@@ -57,7 +57,10 @@ async function generToken(req,res,next){
         {
             id : req.info.find.id_user,
             username : req.info.find.username,
-            avatar: req.info?.profile?.avatar || null
+            avatar: req.info?.profile?.avatar || null,
+            bio : req.info?.profile?.bio || null,
+            tel : req.info?.profile?.tel || null,
+
         },
         process.env.AccessToken,
         {expiresIn: process.env.AccessExpired}

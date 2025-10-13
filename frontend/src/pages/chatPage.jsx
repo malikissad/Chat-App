@@ -3,7 +3,7 @@ import React from "react"
 function ChatPage(){
     return (
         <p>
-            kjenfvebqvlj
+            <button></button>
         </p>
     )
 }
