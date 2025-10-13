@@ -11,7 +11,7 @@ function VerifyAccessToken(req,res,next){
     
     jwt.verify(Access, process.env.AccessToken, (err, decode) => {
         if(err){
-            return res.json({message : err.message})
+            return res.status(401).json({message : err.message})
         }
         res.locals.decode = decode
         next()
@@ -24,15 +24,19 @@ function VerifyRefreshToken(req,res,next){
 
     jwt.verify(Refresh, process.env.RefreshToken, (err, decode)=>{
         if(err){
-            return res.json({
+            return res.status(403).json({
                 messageRefresh: err.message,
                 message: "on peut pas générer du access token car le refresh token est invalide"
             })
         }else{
             const access = jwt.sign(
                 {
-                    id: decode.id_user,
-                    username: decode.username
+                    id: decode.id,
+                    username: decode.username,
+                    avatar: decode?.avatar || null,
+                    bio : decode?.bio || null,
+                    tel : decode?.tel || null
+
                 },
                 process.env.AccessToken,
                 {expiresIn: process.env.AccessExpired}

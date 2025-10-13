@@ -8,30 +8,26 @@ function Button({username, password, seterreur}){
     async function hundleClick(){
         try{
             const response = await login(username, password)
-
+            
             // return response.data
             if(response.response.status == 400 || response.response.status == 401 || response.response.status == 404 || response.response.status == 409){
              seterreur(response.data.message)
+             return 
             }
+
+            const user = JSON.parse(localStorage.getItem('user'))
+            if(!user.avatar || !user.bio || !user.tel){
+                navigate('/info')
+            }else{
+                navigate('/chat')
+            }
+
          return response.data
 
         }catch(err){
             return err.message
         }
     }  
-
-    useEffect(()=>{
-
-        const info = JSON.parse(localStorage.getItem('user'))
-        console.log(localStorage.getItem('user'))
-
-        if(info.avatar == null){
-            navigate('/info')
-            console.log(localStorage.getItem('token'))
-        }else{
-            navigate('/chat')
-        }
-    },[])
     
     
     return (

@@ -14,7 +14,7 @@ const Register = require("../controlleurs/register.js")
 Router.post("/login", CheckInfo, generToken, Login)
 Router.get("/protected",VerifyAccessToken, Protected)
 
-Router.post("/refresh", VerifyRefreshToken, (req,res) => {
+Router.get("/refresh", VerifyRefreshToken, (req,res) => {
     return res.json({AccessToken : res.locals.AccessToken})
 })
 

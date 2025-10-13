@@ -27,13 +27,9 @@
                 const data = await response.json()
                 // return data
                 if(response.status == 200){
-                //  settoken(data)
-                 //  setuser(jwtDecode(data.AccessToken))
-                //  const user = jwtDecode(data.AccessToken)
                  localStorage.setItem('user', JSON.stringify(jwtDecode(data.AccessToken)))
                  localStorage.setItem('token', JSON.stringify(data.AccessToken))
                 }
-                
                 return {response ,data}
 
             }catch(err){
@@ -42,19 +38,39 @@
         } 
 
         async function Protected(){
-            const response = await fetch('http://localhost:3000/auth/protected', {
-                method : 'GET',
-                headers: {
-                    'Content-Type' : 'application/json',
-                    'Authorization' : `bearer ${localStorage.getItem('token')}`
-                }
-            })
-            const data = await response.json()
-            return data.message
+            try{
+                const response = await fetch('http://localhost:3000/auth/protected', {
+                 method : 'GET',
+                    headers: {
+                     'Content-Type' : 'application/json',
+                     'Authorization' : `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                    }
+                })
+           
+             const data = await response.json()
+             return data
+            }catch(err){
+                return err.message
+            }
+        }
+
+        async function Refresh(){
+            try{
+                const response = await fetch('http://localhost:3000/auth/refresh',{
+                 method : 'GET',
+                 credentials: 'include'
+                })
+                const data = await response.json()
+
+             return data
+
+            }catch(err){
+             return err.message 
+            }
         }
 
         return (
-            <AuthContext.Provider value={{login, Protected}}>
+            <AuthContext.Provider value={{login, Protected, Refresh}}>
                 {children}
             </AuthContext.Provider>
 

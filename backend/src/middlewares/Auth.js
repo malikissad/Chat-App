@@ -46,8 +46,11 @@ async function generToken(req,res,next){
     
     const RefreshToken = jwt.sign(
         {
-            id : req.info.id_user,
-            username : req.info.username
+            id : req.info.find.id_user,
+            username : req.info.find.username,
+            avatar: req.info?.profile?.avatar || null,
+            bio : req.info?.profile?.bio || null,
+            tel : req.info?.profile?.tel || null
         },
         process.env.RefreshToken,
         {expiresIn: process.env.RefreshExpired}
