@@ -3,9 +3,9 @@ require('dotenv').config()
 function Login(req, res){
    res.cookie(process.env.RefreshToken, req.token.RefreshToken,{
     httpOnly : true,
-    secure: true,
+    secure: false,
     sameSite: "strict",
-    maxAge : 120 * 1000
+    maxAge : 120 * 1000,
    })
 
    return res.json({AccessToken : req.token.AccessToken})

@@ -20,9 +20,15 @@ function VerifyAccessToken(req,res,next){
 
 
 function VerifyRefreshToken(req,res,next){
-    const Refresh = req.cookies.RefreshToken
+    try{
+        console.log(req.cookies)
+        const Refresh = req.cookies.RefreshToken
+        // return res.json({RefreshToken : Refresh})
+        if(!Refresh){
+            return res.status(400).json({message : 'token existe pas'})
+        }
 
-    jwt.verify(Refresh, process.env.RefreshToken, (err, decode)=>{
+        jwt.verify(Refresh, process.env.RefreshToken, (err, decode)=>{
         if(err){
             return res.status(403).json({
                 messageRefresh: err.message,
@@ -47,6 +53,10 @@ function VerifyRefreshToken(req,res,next){
         }
     })
 
+
+    }catch(err){
+        return res.status(500).json({message : err.message})
+    }
 
 }
 

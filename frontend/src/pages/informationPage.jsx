@@ -7,7 +7,11 @@ function InfoPage(){
     return (
         <p>
             <button onClick={async (e) => { console.log(await Protected()) }}>access</button>
-            <button onClick={async (e) => { console.log(await Refresh())}}>refresh</button>
+            <button 
+             onClick={async (e) => { 
+                console.log(await Refresh()),
+                console.log(document.cookie)
+                }}>refresh</button>
         </p>
     )
 }
