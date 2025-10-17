@@ -21,7 +21,7 @@ function VerifyAccessToken(req,res,next){
 
 function VerifyRefreshToken(req,res,next){
     try{
-        console.log(req.cookies)
+        // console.log(req.cookies)
         const Refresh = req.cookies.RefreshToken
         // return res.json({RefreshToken : Refresh})
         if(!Refresh){
