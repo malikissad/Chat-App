@@ -12,11 +12,19 @@ async function AddInformationMiddleware(req, res, next){
         if(!Access){
             return res.status(400).json({message :"token invalide"})
         }
-
-        //trouver le user
         
 
-        return res.json({message : "information ajouter avec succée"})
+        // const profile = await db.Profile.findOne({
+        //     where : {id_user : Access.id}
+        // })
+        await db.Profile.update({
+            avatar : avatar || null,
+            bio : bio || null,
+            tel : tel || null},
+            {where :{id_user : Access.id}}
+        )
+        
+        return res.json({message : "modification réuss ite"})
 
     }catch(err){
         return res.json({message : err.message})
