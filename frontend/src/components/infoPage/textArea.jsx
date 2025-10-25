@@ -1,9 +1,10 @@
 import React from "react"
 
-function TextArea({text}){
+function TextArea({text, setbio}){
     return (
         <>
             <textarea 
+             onChange={(e) => setbio(e.target.value)}
              placeholder="Tell us about your self...."
              className="w-[80%] h-[100%] rounded-xl bg-blue-100 ring-bleu-100 ring-1 pl-3 focus:ring-2
               focus:ring-[#e11d74] transition-all duartion-300 focus:outline-none pt-2"></textarea>
