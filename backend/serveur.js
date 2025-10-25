@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const db = require("./models/index.js");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-
+const RouterP = require("./src/routes/AddInformation.js")
 const app = express();
 const port = 3000;
 
@@ -19,6 +19,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 app.use("/auth", Router);
+app.use("/Profile", RouterP)
 
 app.get("/add", async (req, res) => {
   try {
