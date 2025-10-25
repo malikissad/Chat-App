@@ -14,10 +14,10 @@ function Button({username, password, seterreur}){
              seterreur(response.data.message)
              return 
             }
-
+            
             const user = JSON.parse(localStorage.getItem('user'))
-            if(!user.avatar || !user.bio || !user.tel){
-                navigate('/info')
+            if(!user.avatar){
+                navigate('/information')
             }else{
                 navigate('/chat')
             }

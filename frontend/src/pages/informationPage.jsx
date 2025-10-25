@@ -1,19 +1,13 @@
-import {useContext}from "react"
-import AuthContext from "../authContext/authContext.jsx"
+import InfoPage from '../components/infoPage/InfoPage.jsx' 
+function InformationPage(){
 
-function InfoPage(){
-
-    const {Protected, Refresh} = useContext(AuthContext)
     return (
-        <p>
-            <button onClick={async (e) => { console.log(await Protected()) }}>access</button>
-            <button 
-             onClick={async (e) => { 
-                console.log(await Refresh()),
-                console.log(document.cookie)
-                }}>refresh</button>
-        </p>
+        <div className="h-screen w-full">
+            <div className="flex justify-center items-center h-[110%] w-full bg-blue-100"> 
+                <InfoPage></InfoPage>
+            </div>
+        </div>
     )
 }
 
-export default InfoPage
+export default InformationPage

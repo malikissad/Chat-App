@@ -16,6 +16,7 @@ function Formulaire(){
           <p className="mt-[2%] text-gray-500 text-lg">Rejoignez notre communauté dès maintenant</p>
           <div className="w-full h-[50%] flex flex-col justify-center items-center mt-[5%]">
             <Input 
+             value={FullName}
              text="FullName"
              setFullName={setFullName}
              setEmail={setEmail}
@@ -24,13 +25,16 @@ function Formulaire(){
             ></Input>
 
             <Input 
+             value={Email}
              text="Email"
              setFullName={setFullName}
              setEmail={setEmail}
              setUsername={setUsername}
              setPassword={setPassword}
             ></Input>
+
             <Input 
+             value={Username}
              text="Username"
              setFullName={setFullName}
              setEmail={setEmail}
@@ -38,6 +42,7 @@ function Formulaire(){
              setPassword={setPassword}
             ></Input>
             <Input 
+             value={Password}
              text="Password"
              setFullName={setFullName}
              setEmail={setEmail}

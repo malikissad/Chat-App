@@ -22,11 +22,13 @@ function Info(){
             <div className="w-full h-[30%] flex flex-col justify-end items-center space-y-2">
             <Input 
               text="Username"
+              value={Username}
               setUsername={setUsername}
               setPassword={setPassword}
             ></Input>
             <Input 
               text="password"
+              value={Password}
               setUsername={setUsername}
               setPassword={setPassword}
             ></Input>
