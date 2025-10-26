@@ -63,7 +63,10 @@ function Cadre(){
              avatar={avatar}
              bio={bio}
              tel={tel}
-             className='w-[80%] h-[70%] bg-[#e11d74] rounded-xl hover:bg-[#cc2570] mt-[20%] transition-all duration-500 button-shadow' 
+             className='w-[80%] h-[70%] bg-[#e11d74] rounded-xl hover:bg-[#cc2570] 
+              mt-[20%] transition-all duration-500 button-shadow 
+              md:w-[80%] md:h-[70%]
+              sm:w-[90%] sm:h-[70%]' 
              text="Save And Continue">
             </Button>
 
