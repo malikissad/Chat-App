@@ -4,7 +4,7 @@ export async function AddInformationFetch(avatar, bio, tel){
             method: 'POST',
             headers:{
                 'Content-Type' : 'application/json',
-                'Authorization' : `Bearer ${localStorage.getItem('token')}`
+                'Authorization' : `Bearer ${JSON.parse(localStorage.getItem('token'))}`
             },
             body : JSON.stringify({
                 avatar : avatar,
@@ -12,9 +12,10 @@ export async function AddInformationFetch(avatar, bio, tel){
                 tel : tel
             })
         })
+        
         return response
     }catch(err){
-        console.log("front erreur :" + err.message)
+        console.log(err.message)
   
     }
 }

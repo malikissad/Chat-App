@@ -10,7 +10,7 @@ async function AddInformationMiddleware(req, res, next){
         const AccessToken = header && header.split(" ")[1]
         const {avatar ,bio ,tel} = req.body
 
-        Access = jwt.verify(AccessToken, process.env.AccessToken)
+        Access = jwt.decode(AccessToken)
         if(!Access){
             return res.status(401).json({message :"token invalide"})
         }
@@ -22,7 +22,7 @@ async function AddInformationMiddleware(req, res, next){
             {where :{id_user : Access.id}}
         )
         
-        return res.json({message : "modification réussite"})
+        return res.status(201).json({message : "modification réussite"})
 
     }catch(err){
         return res.json({message : err.message})
