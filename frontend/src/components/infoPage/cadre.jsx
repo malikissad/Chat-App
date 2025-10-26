@@ -12,19 +12,34 @@ function Cadre(){
     const [bio, setbio] = useState('')
     const [tel, settel] = useState('')
 
+    function changeAvatar(e){
+        const file = e.target.files[0]
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload=()=>{setavatar(reader.result)}
+    }
+
     return (
         <div className="flex flex-col justify-start items-center bg-white h-[90%] w-[30%] rounded-3xl cadre-shadow">
             <p className='font-bold text-3xl mt-5'>Complete Your Profile</p>
             <p className='text-gray-700 font-semibold mt-1'>Help others get to know you better</p>            
             <div className='ralative w-full h-[20%] flex justify-center items-center'>
-                
-                <button className='peer h-7 w-7 bg-[#e11d74] flex justify-center items-center rounded-full absolute top-[32%] left-[51%] hover:scale-110 transition-all duration-300'>
-                    <Camera className='text-white w-4 h-4 '></Camera>
-                </button>
-                
+                <div className='peer absolute top-[31%] left-[51%] flex justify-center items-center rounded-full bg-[#e11d74] w-7 h-7'>
+                    <input
+                     id='button' 
+                     className='hidden'
+                     type="file"
+                     onChange={changeAvatar}
+                     />
+                    <label 
+                     className='cursor-pointer'
+                     htmlFor='button'>
+                            <Camera className='text-white w-4 h-4'></Camera>
+                    </label>
+                </div>
                 <img 
                  className='h-[70%] w-[23%] rounded-full object-cover mt-7 ring-4 ring-gray-100 hover:ring-[#e11d74] transition-all duration-500 peer-hover:ring-4 peer-hover:ring-[#e11d74]'
-                 src={font}
+                 src={avatar}
                 />
             </div>
 

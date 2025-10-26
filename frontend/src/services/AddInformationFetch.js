@@ -1,16 +1,15 @@
 export async function AddInformationFetch(avatar, bio, tel){
     try{
+        const formData = new FormData()
+        formData.append('avatar', avatar)
+        formData.append('bio', bio)
+        formData.append('tel', tel)
         const response = await fetch("http://localhost:3000/Profile/addInformation",{
             method: 'POST',
             headers:{
-                'Content-Type' : 'application/json',
                 'Authorization' : `Bearer ${JSON.parse(localStorage.getItem('token'))}`
             },
-            body : JSON.stringify({
-                avatar : avatar,
-                bio : bio,
-                tel : tel
-            })
+            body : formData
         })
         
         return response
