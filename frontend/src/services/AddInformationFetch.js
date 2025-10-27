@@ -1,10 +1,11 @@
-export async function AddInformationFetch(avatar, bio, tel){
+export async function AddInformationFetch(avatar, image, bio, tel){
     try{
         const formData = new FormData()
         formData.append('avatar', avatar)
+        formData.append('image', image)
         formData.append('bio', bio)
         formData.append('tel', tel)
-        const response = await fetch("http://localhost:3000/Profile/addInformation",{
+        const response = await fetch("http://localhost:3000/upload",{
             method: 'POST',
             headers:{
                 'Authorization' : `Bearer ${JSON.parse(localStorage.getItem('token'))}`

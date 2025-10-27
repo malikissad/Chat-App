@@ -4,11 +4,12 @@ import Button from './button.jsx'
 import TextArea from './textArea.jsx'
 import {Link} from 'react-router-dom'
 import {Camera} from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function Cadre(){
     
-    const [avatar, setavatar] = useState('value')
+    const [avatar, setavatar] = useState('')
+    const [image, setimage] = useState('')
     const [bio, setbio] = useState('')
     const [tel, settel] = useState('')
 
@@ -16,34 +17,40 @@ function Cadre(){
         const file = e.target.files[0]
         const reader = new FileReader()
         reader.readAsDataURL(file)
-        reader.onload=()=>{setavatar(reader.result)}
+        reader.onload=()=>{
+            setavatar(file)
+            setimage(reader.result)
+        }
     }
 
     return (
-        <div className="flex flex-col justify-start items-center bg-white h-[90%] w-[30%] rounded-3xl cadre-shadow">
-            <p className='font-bold text-3xl mt-5'>Complete Your Profile</p>
-            <p className='text-gray-700 font-semibold mt-1'>Help others get to know you better</p>            
+        <div className="xl:h-[90%] xl:w-[30%] lg:h-[90%] lg:w-[40%] md:w-[50%] flex flex-col justify-start items-center bg-white h-[90%] sm:w-[50%] rounded-3xl cadre-shadow">
+            <p className='font-bold xl:text-3xl mt-5 lg:text-2xl md:text-3xl sm:text-lg text-2xl flex justify-center items-center'>Complete Your Profile</p>
+            <p className='text-gray-700 text-sm font-semibold mt-1 xl:text-base lg:text-sm sm:text-sm text-smaul md:text-lg'>Help others get to know you better</p>            
             <div className='ralative w-full h-[20%] flex justify-center items-center'>
-                <div className='peer absolute top-[31%] left-[51%] flex justify-center items-center rounded-full bg-[#e11d74] w-7 h-7'>
+                <div className='md:w-9 md:h-9 md:top-[27%] md:left-[55%] top-[32%] left-[56%] w-6 h-6 peer absolute xl:top-[31%] xl:left-[51%] flex justify-center items-center rounded-full bg-[#e11d74] xl:w-7 xl:h-7 sm:w-7 sm:h-7 sm:top-[34%] sm:left-[52%]'>
                     <input
                      id='button' 
                      className='hidden'
                      type="file"
                      onChange={changeAvatar}
+
                      />
                     <label 
                      className='cursor-pointer'
                      htmlFor='button'>
-                            <Camera className='text-white w-4 h-4'></Camera>
+                            <Camera className='text-white w-4 h-4 md:w-6 md:h-6'></Camera>
                     </label>
                 </div>
                 <img 
-                 className='h-[70%] w-[23%] rounded-full object-cover mt-7 ring-4 ring-gray-100 hover:ring-[#e11d74] transition-all duration-500 peer-hover:ring-4 peer-hover:ring-[#e11d74]'
-                 src={avatar}
+                 className='w-[40%] h-[75%] xl:h-[70%] xl:w-[23%] md:w-[30%] md:h-[72%]  rounded-full object-cover mt-7 ring-4
+                  ring-gray-100 hover:ring-[#e11d74] transition-all duration-500 peer-hover:ring-4
+                   peer-hover:ring-[#e11d74] '
+                 src={image}
                 />
             </div>
 
-            <p className='mt-[2%] text-gray-600'>Click to upload profile picture</p>
+            <p className='mt-[2%] text-gray-600 text-vrsm'>Click to upload profile picture</p>
 
             <div className='relative flex justify-center items-center w-full h-[20%] mt-[10%]'>
                 <TextArea

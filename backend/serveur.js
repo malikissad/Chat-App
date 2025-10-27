@@ -5,6 +5,9 @@ const bcrypt = require("bcrypt");
 const db = require("./models/index.js");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const upload = require("./src/middlewares/multer.js")
+
+
 const RouterP = require("./src/routes/AddInformation.js")
 const app = express();
 const port = 3000;
@@ -15,11 +18,29 @@ app.use(
     credentials: true,
   })
 );
-  
-app.use(express.json());
+
+
+app.use(express.json()); 
 app.use(cookieParser());
 app.use("/auth", Router);
 app.use("/Profile", RouterP)
+
+app.post("/upload", upload.single("avatar"), (req, res) => {
+  try {
+    const { bio, tel } = req.body;
+    const avatar = req.file.filename;
+    
+    return res.json({
+      bio,
+      tel,
+      avatar,
+    });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+});
+
+
 
 app.get("/add", async (req, res) => {
   try {
