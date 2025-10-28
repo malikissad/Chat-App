@@ -8,9 +8,10 @@ function Button({text, className, avatar, bio, tel}){
         try{
             const response = await AddInformationFetch(avatar, bio, tel);
             const data = await response.json()
+            console.log(data)
             return data
         }catch(err){
-            console.log(err.message)
+            console.log({message : err.message})
         }
     }
     

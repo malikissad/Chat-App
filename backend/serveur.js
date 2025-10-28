@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const db = require("./models/index.js");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const { upload} = require('./src/middlewares/multer.js')
 const RouterP = require("./src/routes/AddInformation.js")
 const app = express();
 const port = 3000;
@@ -20,6 +21,18 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/auth", Router);
 app.use("/Profile", RouterP)
+
+
+app.post('/upload', upload.single('avatar'), (req,res)=>{
+  try{
+    if (!req.file) {
+      return res.status(400).json({ erreur: 'Aucun fichier téléchargé' });
+    }
+    return  res.json({message : 'Fichier téléchargé avec succès', filePath : req.file.path})
+  }catch(err){
+    return res.json({erreur : err.message})
+  }
+})
 
 app.get("/add", async (req, res) => {
   try {

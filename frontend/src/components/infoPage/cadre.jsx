@@ -5,10 +5,11 @@ import TextArea from './textArea.jsx'
 import {Link} from 'react-router-dom'
 import {Camera} from 'lucide-react'
 import { useState } from 'react'
+import { useEffect } from 'react'
 
 function Cadre(){
     
-    const [avatar, setavatar] = useState('value')
+    const [avatar, setavatar] = useState('')
     const [bio, setbio] = useState('')
     const [tel, settel] = useState('')
 
@@ -16,8 +17,10 @@ function Cadre(){
         const file = e.target.files[0]
         const reader = new FileReader()
         reader.readAsDataURL(file)
-        reader.onload=()=>{setavatar(reader.result)}
+        reader.onload=()=>{setavatar(file)}
     }
+
+    useEffect(()=>{console.log(avatar)})
 
     return (
         <div className="flex flex-col justify-start items-center bg-white h-[90%] w-[30%] rounded-3xl cadre-shadow">
