@@ -2,11 +2,11 @@ import React from "react"
 import { AddInformationFetch } from "../../services/AddInformationFetch"
 import { useEffect } from "react";
 
-function Button({text, className, avatar, bio, tel}){
+function Button({text, className, avatar ,image , bio, tel}){
     
     async function handleclick(){
         try{
-            const response = await AddInformationFetch(avatar, bio, tel);
+            const response = await AddInformationFetch(avatar ,image , bio, tel);
             const data = await response.json()
             console.log(data)
             return data
@@ -14,6 +14,10 @@ function Button({text, className, avatar, bio, tel}){
             console.log({message : err.message})
         }
     }
+
+    useEffect(()=>{
+        console.log(avatar)
+    })
     
 
     return (
