@@ -4,11 +4,12 @@ import Button from './button.jsx'
 import TextArea from './textArea.jsx'
 import {Link} from 'react-router-dom'
 import {Camera} from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function Cadre(){
     
-    const [avatar, setavatar] = useState('value')
+    const [avatar, setavatar] = useState('')
+    const [image, setimage] = useState('')
     const [bio, setbio] = useState('')
     const [tel, settel] = useState('')
 
@@ -16,7 +17,10 @@ function Cadre(){
         const file = e.target.files[0]
         const reader = new FileReader()
         reader.readAsDataURL(file)
-        reader.onload=()=>{setavatar(reader.result)}
+        reader.onload=()=>{
+            setavatar(file)
+            setimage(reader.result)
+        }
     }
 
     useEffect(()=>{console.log(avatar)})
@@ -32,7 +36,6 @@ function Cadre(){
                      className='hidden'
                      type="file"
                      onChange={changeAvatar}
-
                      />
                     <label 
                      className='cursor-pointer'

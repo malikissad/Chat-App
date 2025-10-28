@@ -1,4 +1,4 @@
-export async function AddInformationFetch(avatar, image, bio, tel){
+export async function AddInformationFetch(avatar, bio, tel){
     try{
         const formData = new FormData()
         formData.append('avatar', avatar)
