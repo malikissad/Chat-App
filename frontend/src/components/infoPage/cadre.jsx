@@ -4,7 +4,7 @@ import Button from './button.jsx'
 import TextArea from './textArea.jsx'
 import {Link} from 'react-router-dom'
 import {Camera} from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 function Cadre(){
     
@@ -12,6 +12,7 @@ function Cadre(){
     const [image, setimage] = useState('')
     const [bio, setbio] = useState('')
     const [tel, settel] = useState('')
+    const [loading, setloading] = useState(false)
 
     function changeAvatar(e){
         const file = e.target.files[0]
@@ -23,14 +24,14 @@ function Cadre(){
         }
     }
 
-    useEffect(()=>{console.log(avatar)})
-
     return (
         <div className="xl:h-[90%] xl:w-[30%] lg:h-[90%] lg:w-[40%] md:w-[50%] flex flex-col justify-start items-center bg-white h-[90%] sm:w-[50%] rounded-3xl cadre-shadow">
-            <p className='font-bold xl:text-3xl mt-5 lg:text-2xl md:text-3xl sm:text-lg text-2xl flex justify-center items-center'>Complete Your Profile</p>
+            <p className='font-bold xl:text-3xl mt-5 lg:text-2xl md:text-3xl sm:text-2xl text-2xl flex justify-center items-center'>Complete Your Profile</p>
             <p className='text-gray-700 text-sm font-semibold mt-1 xl:text-base lg:text-sm sm:text-sm text-smaul md:text-lg'>Help others get to know you better</p>            
             <div className='ralative w-full h-[20%] flex justify-center items-center'>
-                <div className='md:w-9 md:h-9 md:top-[27%] md:left-[55%] top-[32%] left-[56%] w-6 h-6 peer absolute xl:top-[31%] xl:left-[51%] flex justify-center items-center rounded-full bg-[#e11d74] xl:w-7 xl:h-7 sm:w-7 sm:h-7 sm:top-[34%] sm:left-[52%]'>
+                <div className='md:w-7 md:h-7 md:top-[31%] md:left-[54%] top-[32%] left-[56%] w-6 h-6 peer absolute xl:top-[31%] xl:left-[52%] 
+                flex justify-center items-center rounded-full bg-[#e11d74] xl:w-7 xl:h-7 sm:w-6 sm:h-6 sm:top-[30%] sm:left-[54%]
+                lg:top-[29%] lg:left-[53%] lg:w-7 lg:h-7'>
                     <input
                      id='button' 
                      className='hidden'
@@ -40,14 +41,15 @@ function Cadre(){
                     <label 
                      className='cursor-pointer'
                      htmlFor='button'>
-                            <Camera className='text-white w-4 h-4 md:w-6 md:h-6'></Camera>
+                            <Camera className='text-white w-4 xl:w-4 lg:w-4 md:w-4 sm:w-4'></Camera>
                     </label>
                 </div>
                 <img 
-                 className='w-[40%] h-[75%] xl:h-[70%] xl:w-[23%] md:w-[30%] md:h-[72%]  rounded-full object-cover mt-7 ring-4
+                 className='w-[40%] h-[75%] xl:h-[70%] xl:w-[23%] md:w-[27%] md:h-[72%] lg:w-[25%] sm:w-[30%] sm:h-[60%]  
+                   rounded-full object-cover mt-7 ring-4
                   ring-gray-100 hover:ring-[#e11d74] transition-all duration-500 peer-hover:ring-4
                    peer-hover:ring-[#e11d74] '
-                 src={image}
+                 src={image ? image : font}
                 />
             </div>
 
@@ -66,11 +68,12 @@ function Cadre(){
                  text="Phone Number"
                 ></Input>
             </div>
-
             <Button 
              avatar={avatar}
              bio={bio}
              tel={tel}
+             loading={loading}
+             setloading={setloading}
              className='w-[80%] h-[70%] bg-[#e11d74] rounded-xl hover:bg-[#cc2570] 
               mt-[20%] transition-all duration-500 button-shadow 
               md:w-[80%] md:h-[70%]
