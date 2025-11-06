@@ -5,7 +5,7 @@ import TextArea from './textArea.jsx'
 import {Link} from 'react-router-dom'
 import {Camera} from 'lucide-react'
 import { useState } from 'react'
-
+import {motion} from 'framer-motion'
 function Cadre(){
     
     const [avatar, setavatar] = useState('')
@@ -25,7 +25,11 @@ function Cadre(){
     }
 
     return (
-        <div className="xl:h-[90%] xl:w-[30%] lg:h-[90%] lg:w-[40%] md:w-[50%] flex flex-col justify-start items-center bg-white h-[90%] sm:w-[50%] rounded-3xl cadre-shadow">
+        <div 
+         initial={{ y:'50%' }}
+         animate={{ y:'0%'}}
+         transition={{duration:1}}
+         className="xl:h-[90%] xl:w-[30%] lg:h-[90%] lg:w-[40%] md:w-[50%] flex flex-col justify-start items-center bg-white h-[90%] sm:w-[50%] rounded-3xl cadre-shadow">
             <p className='font-bold xl:text-3xl mt-5 lg:text-2xl md:text-3xl sm:text-2xl text-2xl flex justify-center items-center'>Complete Your Profile</p>
             <p className='text-gray-700 text-sm font-semibold mt-1 xl:text-base lg:text-sm sm:text-sm text-smaul md:text-lg'>Help others get to know you better</p>            
             <div className='ralative w-full h-[20%] flex justify-center items-center'>

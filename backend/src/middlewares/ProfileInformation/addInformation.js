@@ -1,32 +1,36 @@
-const db = require('../../../models/index.js')
-const jwt = require('jsonwebtoken')
 require('dotenv').config()
+const jwt = require('jsonwebtoken')
+const {upload} = require('../multer.js')
+const db = require('../../../models/index.js')
 async function AddInformationMiddleware(req, res, next){
     
-    try{
-        
-        const header = req.headers['authorization']
-        // return res.json({message : header})
-        const AccessToken = header && header.split(" ")[1]
-        const {avatar ,bio ,tel} = req.body
-
-        Access = jwt.decode(AccessToken)
-        if(!Access){
-            return res.status(401).json({message :"token invalide"})
+    const file = upload.single('avatar')
+    
+    file(req, res, async function(err){
+        if(err){
+            return res.status(400).json({message : err.message})
         }
-        
-        await db.Profile.update({
-            avatar : avatar || null,
-            bio : bio || null,
-            tel : tel || null},
-            {where :{id_user : Access.id}}
-        )
-        
-        return res.status(201).json({message : "modification réussite"})
 
-    }catch(err){
-        return res.json({message : err.message})
-    }
-
+        try{
+            const avatar = req.file.path
+            const {tel,bio} = req.body
+            const header = req.headers['authorization']
+            const AccessToken = header && header.split(' ')[1] 
+            const Access = jwt.decode(AccessToken) 
+            await db.Profile.update({
+                 avatar,
+                 tel,
+                 bio
+                },{
+                 where:{id_user : Access.id} 
+                }
+            )
+            return res.json({message : "update est fait"})
+            // return res.json({message : avatar, tel, bio})
+        }catch(err){
+            return res.json({message : err.message})
+        }
+    })
+    
 }
 module.exports = AddInformationMiddleware

@@ -1,5 +1,5 @@
 function Protected(req,res){
-    res.json({messageBon : res.locals.decode})
+    res.json({message : res.locals.decode})
 }
 
 module.exports = Protected

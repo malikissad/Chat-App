@@ -2,10 +2,11 @@ require('dotenv').config()
 const jwt = require('jsonwebtoken')
 
 function VerifyAccessToken(req,res,next){
-    const header = req.headers['authorization']
+   try{
+     const header = req.headers['authorization']
     const Access = header && header.split(" ")[1]
 
-    if(!Access){
+    if(!header || !Access){
         return res.status(400).json({message : "token not found"})
     }
     
@@ -16,6 +17,9 @@ function VerifyAccessToken(req,res,next){
         res.locals.decode = decode
         next()
     })
+   }catch(err){
+    return res.json({message : err.message})
+   }
 }
 
 

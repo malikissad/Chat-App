@@ -38,18 +38,19 @@
 
         async function Protected(){
             try{
+                const token = localStorage.getItem('token');
+
                 const response = await fetch('http://localhost:3000/auth/protected', {
                  method : 'GET',
                     headers: {
                      'Content-Type' : 'application/json',
-                     'Authorization' : `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                     ...(token && {'Authorization' : `Bearer ${token}`})
                     }
                 })
-           
-             const data = await response.json()
-             return data
+                
+             return response
             }catch(err){
-                return err.message
+               console.log(err.message) 
             }
         }
 
@@ -59,12 +60,14 @@
                  method : 'GET',
                  credentials: 'include'
                 })
-                const data = await response.json()
 
-             return data
+             return response
 
             }catch(err){
-             return err.message 
+                return new Response(JSON.stringify({ message: err.message }), {
+                 status: 500,
+                 headers: { 'Content-Type': 'application/json' }
+                }); 
             }
         }
 
