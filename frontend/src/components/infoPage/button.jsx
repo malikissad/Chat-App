@@ -18,29 +18,28 @@ function Button({
   async function handleclick() {
     try {
       const testAccess = await Protected();
-      const resultTestAccess = await testAccess.json();  
-      console.log(testAccess)
-      console.log(resultTestAccess)
+      const resultTestAccess = await testAccess.json();
+      console.log(testAccess);
       if (testAccess.status == 401) {
         console.log("access token invalid");
         const testRefresh = await Refresh();
         if (testRefresh.status == 400 || testRefresh.status == 403) {
-          localStorage.removeItem('token')
+          localStorage.removeItem("token");
           navigate("/login");
           return;
         }
         const resultTestRefresh = await testRefresh.json();
         localStorage.setItem("token", resultTestRefresh.AccessToken);
-        console.log(localStorage.getItem('token'))
       }
-        // setloading(true);
-        // const response = await AddInformationFetch(avatar, image, bio, tel);
-        // console.log(response)
-        // const data = await response.json();
-        // //  navigate('/chat')
-        // return data;
-      } catch (err) {
-      return err.message
+
+      if (localStorage.getItem('token')){
+        setloading(true);
+        const response = await AddInformationFetch(avatar, bio, tel);
+        const data = await response.json();
+        setloading(false)
+      }
+    } catch (err) {
+      return err.message;
     }
   }
 
@@ -48,12 +47,11 @@ function Button({
     <div className="flex justify-center items-center w-full h-[10%] mt-3">
       <button
         onClick={async (e) => {
-          await handleclick()
-          if(localStorage.getItem('token')){
-            console.log(localStorage.getItem('token'))
-          }else{
-            console.log('pas de token')
-
+          await handleclick();
+          if (localStorage.getItem("token")) {
+            console.log(localStorage.getItem("token"));
+          } else {
+            console.log("pas de token");
           }
         }}
         className={className}

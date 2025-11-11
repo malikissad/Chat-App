@@ -4,6 +4,7 @@ const {upload} = require('../multer.js')
 const db = require('../../../models/index.js')
 async function AddInformationMiddleware(req, res, next){
     
+
     const file = upload.single('avatar')
     
     file(req, res, async function(err){
@@ -12,6 +13,11 @@ async function AddInformationMiddleware(req, res, next){
         }
 
         try{
+            if(!req.file){
+                return res.status(400).json("pas de fichier")
+            }
+
+
             const avatar = req.file.path
             const {tel,bio} = req.body
             const header = req.headers['authorization']
@@ -26,7 +32,6 @@ async function AddInformationMiddleware(req, res, next){
                 }
             )
             return res.json({message : "update est fait"})
-            // return res.json({message : avatar, tel, bio})
         }catch(err){
             return res.json({message : err.message})
         }
